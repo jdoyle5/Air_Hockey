@@ -9,17 +9,17 @@ Additionally users will be able to set the number of players (up to 4) and numbe
 
 ## Functionality & MVP
 In Air Hockey, users will be able to:
--[ ] Start a new game with 1 to 3 A.I. players and 1 to 2 pucks.
--[ ] Move the paddles back and forth to hit the puck.
--[ ] adjust the size of the paddles and the speed of the puck
+- [ ] Start a new game with 1 to 3 A.I. players and 1 to 2 pucks.
+- [ ] Move the paddles back and forth to hit the puck.
+- [ ] adjust the size of the paddles and the speed of the puck
 
 This project will also include:
--[ ] An options modal where you can specify the number of players, pucks, puck speed, etc.
+- [ ] An options modal where you can specify the number of players, pucks, puck speed, etc.
 
 ## Wireframes
 This game will have only a single screen to display the game play. Before the game starts, players can click the options button to bring up the options modal. There, they can can choose from the options specified above.
-![Game Display]
-(https://github.com/jdoyle5/Air_Hockey/blob/master/pics/New%20Wireframe%201.png)
+
+![GameDisplay](https://github.com/jdoyle5/Air_Hockey/blob/master/pics/New%20Wireframe%201.png)
 
 ## Architecture
 The following technologies will be used to build this game:
@@ -36,21 +36,21 @@ In addition to the Webpack file, there will be 4 additional script files:
 
 ## Implementation Timeline
 ### Over The Weekend:
--[ ] Get Webpack up and running
+- [ ] Get Webpack up and running
 ### Day 1:
--[ ] Finish creating basic html setup for the Game along with the necessary three.js and keyboard.js files
--[ ] Develop a good understanding of three.js and webGL for 3d rendering.
--[ ] Add score keeping logic to the backend.
+- [ ] Finish creating basic html setup for the Game along with the necessary three.js and keyboard.js files
+- [ ] Develop a good understanding of three.js and webGL for 3d rendering.
+- [ ] Add score keeping logic to the backend.
 ### Day 2:
--[ ] Draw out sphere and paddles
--[ ] Basic setup of game environment using three.js and WebGL for 2 player Game
--[ ] Add basic logic backend for puck to paddle collisions and puck to wall collisions
+- [ ] Draw out sphere and paddles
+- [ ] Basic setup of game environment using three.js and WebGL for 2 player Game
+- [ ] Add basic logic backend for puck to paddle collisions and puck to wall collisions
 ### Day 3:
--[ ] Add basic gameplay logic like resetting the puck to the center of the table after score.
--[ ] A.I. logic backend for computer player
+- [ ] Add basic gameplay logic like resetting the puck to the center of the table after score.
+- [ ] A.I. logic backend for computer player
 ### Day 4:
--[ ] Basic setup of game environment using three.js and WebGL for 4 players.
--[ ] Add scoreboard ticker and shadows for better viewing experience
+- [ ] Basic setup of game environment using three.js and WebGL for 4 players.
+- [ ] Add scoreboard ticker and shadows for better viewing experience
 ### Bonus Features
--[ ] Addition of web-sockets for multiplayer involvement
--[ ] Ability to play in 2D mode
+- [ ] Addition of web-sockets for multiplayer involvement
+- [ ] Ability to play in 2D mode
