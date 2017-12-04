@@ -25,7 +25,6 @@ This game will have only a single screen to display the game play. Before the ga
 The following technologies will be used to build this game:
 * Vanilla Javascript for the overall game structure and logic
 * Three.js and WebGL for DOM manipulation and 3D rendering of the game world
-* Keyboard.js for easy manipulation of key strokes
 * Webpack for generating static assets representing modules with their dependencies
 
 In addition to the Webpack file, there will be 4 additional script files:
@@ -38,7 +37,7 @@ In addition to the Webpack file, there will be 4 additional script files:
 ### Over The Weekend:
 - [ ] Get Webpack up and running
 ### Day 1:
-- [ ] Finish creating basic html setup for the Game along with the necessary three.js and keyboard.js files
+- [ ] Finish creating basic html setup for the Game along with the necessary three.js file
 - [ ] Develop a good understanding of three.js and webGL for 3d rendering.
 - [ ] Add score keeping logic to the backend.
 ### Day 2:
