@@ -43,10 +43,10 @@ In addition to the Webpack file, there will be 4 additional script files:
 ### Day 2:
 - [ ] Draw out sphere and paddles
 - [ ] Basic setup of game environment using three.js and WebGL for 2 player Game
-- [ ] Add basic logic backend for puck to paddle collisions and puck to wall collisions
+- [ ] Add basic logic scripts for puck-to-paddle collisions and puck-to-wall collisions
 ### Day 3:
 - [ ] Add basic gameplay logic like resetting the puck to the center of the table after score.
-- [ ] A.I. logic backend for computer player
+- [ ] Simple A.I. logic for computer player (computer paddle follows the puck at a constant speed)
 ### Day 4:
 - [ ] Basic setup of game environment using three.js and WebGL for 4 players.
 - [ ] Add scoreboard ticker and shadows for better viewing experience
