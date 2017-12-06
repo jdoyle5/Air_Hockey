@@ -3,7 +3,8 @@
   <head>
     <title>Air Hockey</title>
     <link rel="stylesheet" href="css/game.css" type="text/css">
-    <script src='./app/assets/javascripts/bundle.js'></script>
+    <script src='lib/key_press.js'></script>
+    <script src='app/assets/javascripts/bundle.js'></script>
   </head>
   <body>
     <div id="score-options-cont">
@@ -11,11 +12,10 @@
       <h2 id="options">Options</h2>
     </div>
     <div id="score">
-      <h1>0-0</h2>
+      <h1 id="score-board">0-0</h2>
     </div>
     <div id="game-cont"></div>
     <!-- <script src='./lib/three.min.js'></script> -->
-    <!-- <script src='./lib/keyboard.js'></script> -->
     <!-- <script src='./lib/physics.js'></script> -->
     <!-- <script src='./lib/environment.js'></script> -->
     <h3>Arrow Left - Move Left
