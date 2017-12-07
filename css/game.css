@@ -8,14 +8,14 @@ body {
 	height: 500px;
 	margin: auto;
 	align: center;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 #score-options-cont {
   display:flex;
   flex-direction: row;
   justify-content: space-around;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 #score {
@@ -24,16 +24,16 @@ body {
   display:flex;
   flex-direction: row;
   justify-content: space-around;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 #options {
   /*font-size: 300%;*/
   color: white;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 #winner {
   color: white;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
