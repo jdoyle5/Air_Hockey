@@ -118,7 +118,7 @@ var gameStats = {
 var puckStats = {
   puckDirX: 1,
   puckDirY: 1,
-  puckSpeed: 3
+  puckSpeed: 2
 };
 
 var strikerStats = {
@@ -309,10 +309,12 @@ function draw() {
   renderer.render(scene, camera);
   requestAnimationFrame(draw);
 
-  camera.position.x = strikerOne.position.x - 330;
-  camera.position.z = strikerOne.position.z + 280;
-  camera.rotation.z = -90 * Math.PI / 180;
-  camera.rotation.y = -60 * Math.PI / 180;
+  camera.position.x = 0;
+  camera.position.z = 600;
+  // camera.position.x = strikerOne.position.x - 330;
+  // camera.position.z = strikerOne.position.z + 280;
+  // camera.rotation.z = -90 * Math.PI/180;
+  // camera.rotation.y = -60 * Math.PI/180;
   spotLight.position.x = puck.position.x * 2;
   spotLight.position.y = puck.position.y * 2;
 
@@ -340,7 +342,7 @@ exports.puckPhysics = puckPhysics;
 
 
 var puckRadius = 15;
-var strikerBotRadius = 25;
+var strikerRadius = 25;
 var puckSpeedLev = 0.3;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -364,11 +366,11 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
   }
 
   if (puckStats.puckDirY > 1) {
-    puckStats.puckDirY -= .01;
+    puckStats.puckDirY -= .05;
   }
 
   if (puckStats.puckDirY < -1) {
-    puckStats.puckDirY += .01;
+    puckStats.puckDirY += .05;
   }
 
   if (puck.position.y <= -gameStats.fieldHeight / 2) {
@@ -382,26 +384,120 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
   //////////////////////////////////////////////////////////////
   ////////////////////// STRIKER BOUNCE ////////////////////////
   //////////////////////////////////////////////////////////////
-  if (puck.position.x <= strikerOne.position.x + 25 && puck.position.x >= strikerOne.position.x) {
-    // console.log(puck.position);
-    // console.log(strikerOne.position);
-    // debugger;
-    if (puck.position.y >= strikerOne.position.y - 25 && puck.position.y <= strikerOne.position.y + 25) {
-      if (puckStats.puckDirX < 0) {
-        puckStats.puckDirX = -puckStats.puckDirX + strikerStats.strikerOneDirX * 0.5;
-        puckStats.puckDirY -= strikerStats.strikerOneDirY * 0.5;
-      }
+  // if (puck.position.x <= strikerOne.position.x + 25
+  // &&  puck.position.x >= strikerOne.position.x)
+  // {
+  //   // console.log(puck.position);
+  //   // console.log(strikerOne.position);
+  //   // debugger;
+  //   if (puck.position.y >= strikerOne.position.y - 25
+  //   &&  puck.position.y <= strikerOne.position.y + 25)
+  //   {
+  //     if (puckStats.puckDirX < 0)
+  //     {
+  //       puckStats.puckDirX = -puckStats.puckDirX + (strikerStats.strikerOneDirX * 0.5);
+  //       puckStats.puckDirY -= strikerStats.strikerOneDirY * 0.5;
+  //     }
+  //   }
+  // }
+  //
+  // if (puck.position.x >= strikerTwo.position.x - 35
+  // &&  puck.position.x <= strikerTwo.position.x)
+  // {
+  //   if (puck.position.y <= strikerTwo.position.y + 25
+  //   &&  puck.position.y >= strikerTwo.position.y - 25)
+  //   {
+  //     if (puckStats.puckDirX > 0)
+  //     {
+  //       puckStats.puckDirX = -puckStats.puckDirX - (strikerStats.strikerOneDirX * 0.5);
+  //       puckStats.puckDirY -= strikerStats.strikerTwoDirY * 0.5;
+  //     }
+  //   }
+  // }
+  //////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////
+
+
+  //////////////////////////////////////////////////////////////
+  ////////////////////// STRIKER BOUNCE ////////////////////////
+  ///////////////////// USING COMBO FORM ////////////////////////
+  var strikers = [strikerOne, strikerTwo];
+
+  function rotate(x, y, sin, cos, reverse) {
+    return {
+      x: reverse ? x * cos + y * sin : x * cos - y * sin,
+      y: reverse ? y * cos - x * sin : y * cos + x * sin
+    };
+  }
+
+  for (var i = 0; i < strikers.length; i++) {
+    var striker = strikers[i];
+    var strVelX;
+    var strVelY;
+
+    if (i === 1) {
+      strVelX = strikerStats.strikerOneDirX;
+      strVelY = strikerStats.strikerOneDirY;
+    } else {
+      strVelX = strikerStats.strikerTwoDirX;
+      strVelY = strikerStats.strikerTwoDirY;
+    }
+
+    var distX = puck.position.x - striker.position.x,
+        distY = puck.position.y - striker.position.y,
+        distTotal = Math.sqrt(distX * distX + distY * distY),
+        radiusTotal = puckRadius + strikerRadius;
+
+    if (distTotal < radiusTotal) {
+      debugger;
+      var angle = Math.atan2(distY, distX),
+          sin = Math.sin(angle),
+          cos = Math.cos(angle),
+          posStr = {
+        x: 0,
+        y: 0
+      },
+          posPuck = rotate(distX, distY, sin, cos, true),
+          velPuck = rotate(puckStats.puckDirX, puckStats.puckDirY, sin, cos, true),
+          velStr = rotate(strVelX, strVelY, sin, cos, true),
+          totalVelX = velStr.x - velPuck.x;
+
+      velStr.x = ((strikerRadius - puckRadius) * velStr.x + 2 * puckRadius * velPuck.x) / (strikerRadius + puckRadius);
+      velPuck.x = totalVelX + velStr.x;
+
+      //update position so the objects don't stick together
+      var absV = Math.abs(velStr.x) + Math.abs(velPuck.x),
+          overlap = strikerRadius + puckRadius - Math.abs(posStr.x - posPuck.x);
+
+      posStr.x += velStr.x / absV * overlap;
+      posPuck.x += velPuck.x / absV * overlap;
+
+      // rotate positions back
+      var posPuckF = rotate(posPuck.x, posPuck.y, sin, cos, false),
+          posStrF = rotate(posStr.x, posStr.y, sin, cos, false);
+
+      // set the new positions
+      puck.position.x = striker.position.x + posPuckF.x;
+      puck.position.y = striker.position.y + posPuckF.y;
+      // striker.position.x = striker.position.x + posStr.x;
+      // striker.position.y = striker.position.y + posStr.y;
+
+      // rotate velocities back
+      var velPuckF = rotate(velPuck.x, velPuck.y, sin, cos, false),
+          velStrF = rotate(velStr.x, velStr.y, sin, cos, false);
+
+      strVelX = velStrF.x;
+      strVelY = velStrF.y;
+
+      puckStats.puckDirX = velPuckF.x;
+      puckStats.puckDirY = velPuckF.y;
+    } else {
+      puck.position.x += puckStats.puckDirX * puckStats.puckSpeed;
+      puck.position.y += puckStats.puckDirY * puckStats.puckSpeed;
     }
   }
 
-  if (puck.position.x >= strikerTwo.position.x - 35 && puck.position.x <= strikerTwo.position.x) {
-    if (puck.position.y <= strikerTwo.position.y + 25 && puck.position.y >= strikerTwo.position.y - 25) {
-      if (puckStats.puckDirX > 0) {
-        puckStats.puckDirX = -puckStats.puckDirX - strikerStats.strikerOneDirX * 0.5;
-        puckStats.puckDirY -= strikerStats.strikerTwoDirY * 0.5;
-      }
-    }
-  }
   //////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////
@@ -508,8 +604,6 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
   //   puckStats.puckDirY = -puckStats.puckSpeed * 2;
   // }
 
-  puck.position.x += puckStats.puckDirX * puckStats.puckSpeed;
-  puck.position.y += puckStats.puckDirY * puckStats.puckSpeed;
 
   // checkCollision(puck, strikerOne, puckStats, strikerStats);
   // checkCollision(puck, strikerTwo, puckStats, strikerStats);
