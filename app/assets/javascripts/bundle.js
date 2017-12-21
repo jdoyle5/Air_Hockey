@@ -365,11 +365,11 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     puckStats.puckDirX = -puckStats.puckDirX;
   }
 
-  if (puckStats.puckDirY > 1) {
+  if (puckStats.puckDirY > 2) {
     puckStats.puckDirY -= .05;
   }
 
-  if (puckStats.puckDirY < -1) {
+  if (puckStats.puckDirY < -2) {
     puckStats.puckDirY += .05;
   }
 
@@ -430,10 +430,10 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
   // 			y: (reverse) ? (y * cos - x * sin) : (y * cos + x * sin)
   // 	};
   // }
-  function rotate(x, y, sin, cos) {
+  function rotate(x, y, angle) {
     return {
-      x: x * cos - y * sin,
-      y: x * sin + y * cos
+      x: x * Math.cos(angle) - y * Math.sin(angle),
+      y: x * Math.sin(angle) + y * Math.cos(angle)
     };
   }
 
@@ -442,7 +442,7 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     var strVelX;
     var strVelY;
 
-    if (i === 1) {
+    if (i === 0) {
       strVelX = strikerStats.strikerOneDirX;
       strVelY = strikerStats.strikerOneDirY;
     } else {
@@ -467,86 +467,88 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     if (distTotal < radiusTotal) {
       // debugger;
 
-      if (velXDiff * distX - velYDiff * distY >= 0) {
-        debugger;
+      // if (velXDiff * distX - velYDiff * distY >= 0) {
+      // debugger;
 
-        var angle = -Math.atan2(distY, distX),
-            sin = Math.sin(angle),
-            cos = Math.cos(angle);
+      var angle = -Math.atan2(distY, distX);
+      // sin = Math.sin(angle),
+      // cos = Math.cos(angle);
 
-        // velocity before equation
-        var u1 = rotate(puckVelX, puckVelY, sin, cos);
-        var u2 = rotate(strVelX, strVelY, sin, cos);
+      // velocity before equation
+      var u1 = rotate(puckVelX, puckVelY, angle);
+      var u2 = rotate(strVelX, strVelY, angle);
 
-        // velocity after 1d collision equation
-        var v1 = {
-          x: u1.x * (m1 - m2) / (m1 + m2) + u2.x * 2 * m2 / (m1 + m2),
-          y: u1.y
-        };
-        var v2 = {
-          x: u2.x * (m1 - m2) / (m1 + m2) + u1.x * 2 * m2 / (m1 + m2),
-          y: u2.y
-        };
+      // velocity after 1d collision equation
+      var v1 = {
+        x: u1.x * (m1 - m2) / (m1 + m2) + u2.x * 2 * m2 / (m1 + m2),
+        y: u1.y
+      };
+      var v2 = {
+        x: u2.x * (m1 - m2) / (m1 + m2) + u1.x * 2 * m2 / (m1 + m2),
+        y: u2.y
+      };
 
-        // final velocity after rotating axis back to original location
-        var vFinal1 = rotate(v1, -angle);
-        var vFinal2 = rotate(v2, -angle);
+      // final velocity after rotating axis back to original location
+      var vFinal1 = rotate(v1.x, v1.y, -angle);
+      var vFinal2 = rotate(v2.x, v2.y, -angle);
 
-        // swap particle velocities for realistic bounce effect
-        puckStats.puckDirX = vFinal1.x;
-        puckStats.puckDirY = vFinal1.y;
+      // swap particle velocities for realistic bounce effect
+      puckStats.puckDirX = vFinal1.x;
+      puckStats.puckDirY = vFinal1.y;
 
-        strVelX = vFinal2.x;
-        strVelY = vFinal2.y;
+      // strVelX = vFinal2.x;
+      // strVelY = vFinal2.y;
 
-        puck.position.x += puckStats.puckDirX;
-        puck.position.y += puckStats.puckDirY;
 
-        ///////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////
-        // var posStr = {
-        //   x: 0,
-        //   y: 0
-        // },
-        //
-        // posPuck = rotate(distX, distY, sin, cos),
-        // velPuck = rotate(puckStats.puckDirX, puckStats.puckDirY, sin, cos),
-        // velStr = rotate(strVelX, strVelY, sin, cos),
-        // totalVelX = velStr.x - velPuck.x;
-        //
-        // velStr.x = ((strikerRadius - puckRadius) * velStr.x + 2 * puckRadius * velPuck.x) /
-        // (strikerRadius + puckRadius);
-        // velPuck.x = totalVelX + velStr.x;
-        //
-        // //update position so the objects don't stick together
-        // var absV = Math.abs(velStr.x) + Math.abs(velPuck.x),
-        // overlap = (strikerRadius + puckRadius) - Math.abs(posStr.x - posPuck.x);
-        //
-        // posStr.x += velStr.x / absV * overlap;
-        // posPuck.x += (velPuck.x / absV * overlap);
-        //
-        // // rotate positions back
-        // var posPuckF = rotate(posPuck.x, posPuck.y, sin, cos),
-        // posStrF = rotate(posStr.x, posStr.y, sin, cos);
+      puck.position.x += puckStats.puckDirX;
+      puck.position.y += puckStats.puckDirY;
 
-        // set the new positions
-        // puck.position.x = striker.position.x + posPuckF.x;
-        // puck.position.y = striker.position.y + posPuckF.y;
-        // striker.position.x = striker.position.x + posStr.x;
-        // striker.position.y = striker.position.y + posStr.y;
+      ///////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////
+      // var posStr = {
+      //   x: 0,
+      //   y: 0
+      // },
+      //
+      // posPuck = rotate(distX, distY, sin, cos),
+      // velPuck = rotate(puckStats.puckDirX, puckStats.puckDirY, sin, cos),
+      // velStr = rotate(strVelX, strVelY, sin, cos),
+      // totalVelX = velStr.x - velPuck.x;
+      //
+      // velStr.x = ((strikerRadius - puckRadius) * velStr.x + 2 * puckRadius * velPuck.x) /
+      // (strikerRadius + puckRadius);
+      // velPuck.x = totalVelX + velStr.x;
+      //
+      // //update position so the objects don't stick together
+      // var absV = Math.abs(velStr.x) + Math.abs(velPuck.x),
+      // overlap = (strikerRadius + puckRadius) - Math.abs(posStr.x - posPuck.x);
+      //
+      // posStr.x += velStr.x / absV * overlap;
+      // posPuck.x += (velPuck.x / absV * overlap);
+      //
+      // // rotate positions back
+      // var posPuckF = rotate(posPuck.x, posPuck.y, sin, cos),
+      // posStrF = rotate(posStr.x, posStr.y, sin, cos);
 
-        // rotate velocities back
-        // var velPuckF = rotate(velPuck.x, velPuck.y, sin, cos),
-        // velStrF = rotate(velStr.x, velStr.y, sin, cos);
-        //
-        // strVelX = velStrF.x;
-        // strVelY = velStrF.y;
-        //
-        // puckStats.puckDirX = velPuckF.x;
-        // puckStats.puckDirY = velPuckF.y;
-      }
-    } else {
+      // set the new positions
+      // puck.position.x = striker.position.x + posPuckF.x;
+      // puck.position.y = striker.position.y + posPuckF.y;
+      // striker.position.x = striker.position.x + posStr.x;
+      // striker.position.y = striker.position.y + posStr.y;
+
+      // rotate velocities back
+      // var velPuckF = rotate(velPuck.x, velPuck.y, sin, cos),
+      // velStrF = rotate(velStr.x, velStr.y, sin, cos);
+      //
+      // strVelX = velStrF.x;
+      // strVelY = velStrF.y;
+      //
+      // puckStats.puckDirX = velPuckF.x;
+      // puckStats.puckDirY = velPuckF.y;
+    }
+
+    {
       // puck.position.x += puckStats.puckDirX * puckStats.puckSpeed;
       // puck.position.y += puckStats.puckDirY * puckStats.puckSpeed;
       puck.position.x += puckStats.puckDirX;
@@ -808,7 +810,7 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
   }
 
   if (Key.isDown(Key.F)) {
-    if (strikerOne.position.x < -200) {
+    if (strikerOne.position.x < -50) {
       strikerStats.strikerOneDirX = strikerStats.strikerOneSpeed;
     } else {
       strikerStats.strikerOneDirX = 0;
