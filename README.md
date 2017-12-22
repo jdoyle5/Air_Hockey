@@ -55,3 +55,4 @@ In addition to the Webpack file, there will be 4 additional script files:
 ### Bonus Features
 - [ ] Addition of web-sockets for multiplayer involvement
 - [ ] Ability to play in 2D mode
+- [ ] Add an options tab where players can set computer player difficulty
