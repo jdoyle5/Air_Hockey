@@ -359,7 +359,6 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     resetPuck(2, puck, puckStats);
     gameWonCheck(gameStats.scorePlayer1, gameStats.scorePlayer2, gameStats.maxScore, puckStats);
   } else if (puck.position.x <= -gameStats.fieldWidth / 2) {
-    debugger;
     var distBetwLeft = puck.position.x - leftEdge;
     puck.position.x += -distBetwLeft;
     puckStats.puckDirX = -puckStats.puckDirX;
@@ -371,6 +370,9 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     resetPuck(1, puck, puckStats);
     gameWonCheck(gameStats.scorePlayer1, gameStats.scorePlayer2, gameStats.maxScore, puckStats);
   } else if (puck.position.x >= gameStats.fieldWidth / 2) {
+    var distBetwRight = puck.position.x - rightEdge;
+    puck.position.x += -distBetwRight;
+    debugger;
     puckStats.puckDirX = -puckStats.puckDirX;
   }
 
@@ -382,12 +384,12 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     puckStats.puckDirY += .05;
   }
 
-  if (puckStats.puckDirX > 2) {
-    puckStats.puckDirY -= .05;
+  if (puckStats.puckDirX < 2 && puckStats.puckDirX > 0) {
+    puckStats.puckDirX += .05;
   }
 
-  if (puckStats.puckDirX < -2) {
-    puckStats.puckDirY += .05;
+  if (puckStats.puckDirX > -2 && puckStats.puckDirX < 0) {
+    puckStats.puckDirX -= .05;
   }
 
   if (puck.position.y <= bottomEdge) {
