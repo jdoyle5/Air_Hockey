@@ -488,7 +488,7 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
         m2 = 2;
 
     if (distTotal < radiusTotal) {
-      // debugger;
+      var distDiff = radiusTotal - distTotal;
 
       // if (velXDiff * distX - velYDiff * distY >= 0) {
       // debugger;
