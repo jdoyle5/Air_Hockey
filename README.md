@@ -1,4 +1,4 @@
-[Air Hockey](https://jdoyle5.github.io/Air_Hockey/) - A Classic Arcade Experience With a 3D Spin
+[Air Hockey](https://jdoyle5.github.io/air_hockey_3d/) - A Classic Arcade Experience With a 3D Spin
 
 ## Background and Overview
 Air Hockey 3D combines collision physics and the classic pong-like visuals with a 3D upgrade. the object of the game is that of any generic air hockey game. Players will use their paddles to try and knock the puck through the other player's goal.
