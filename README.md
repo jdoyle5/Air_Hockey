@@ -1,6 +1,4 @@
-Air Hockey - A Classic Arcade Experience With a 3D Spin
-
-[Live Link](https://jdoyle5.github.io/Air_Hockey/)
+[Air Hockey](https://jdoyle5.github.io/Air_Hockey/) - A Classic Arcade Experience With a 3D Spin
 
 ## Background and Overview
 Air Hockey is an interactive 3D air hockey game combining physics and the classic pong-like visuals with a 3D upgrade. the object of the game is that of any generic air hockey game. Players will use their paddles to try and knock the puck passed the other person's paddle.
@@ -20,8 +18,6 @@ This project will also include:
 
 ## Wireframes
 This game will have only a single screen to display the game play. Before the game starts, players can click the options button to bring up the options modal. There, they can can choose from the options specified above.
-
-![GameDisplay](https://github.com/jdoyle5/Air_Hockey/blob/master/pics/New%20Wireframe%201.png)
 
 ## Architecture
 The following technologies will be used to build this game:
