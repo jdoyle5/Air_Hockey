@@ -311,14 +311,14 @@ function draw() {
 
   // camera.position.x = 0;
   // camera.position.z = 600;
-  camera.position.x = strikerOne.position.x - 330;
+  camera.position.x = strikerOne.position.x - 350;
   camera.position.z = strikerOne.position.z + 280;
   camera.rotation.z = -90 * Math.PI / 180;
   camera.rotation.y = -60 * Math.PI / 180;
   spotLight.position.x = puck.position.x * 2;
   spotLight.position.y = puck.position.y * 2;
 
-  camera.position.y += (strikerOne.position.y - camera.position.y) * 0.05;
+  // camera.position.y += (strikerOne.position.y - camera.position.y) * 0.05;
 
   (0, _striker_physics.strikerPhysics)(puck, strikerOne, strikerTwo, gameStats, strikerStats);
   (0, _puck_physics.puckPhysics)(puck, gameStats, strikerOne, strikerTwo, puckStats, strikerStats);
@@ -802,7 +802,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.strikerPhysics = strikerPhysics;
 
 
-var difficulty = .3;
+var difficulty = .2;
 
 function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
 

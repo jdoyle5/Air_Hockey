@@ -1,14 +1,27 @@
 body {
-  background-color: gray;
+  background-color: indigo;
 }
 
 #game-cont {
-  background-color: gray;
+  background-color: indigo;
   width: 800px;
 	height: 500px;
 	margin: auto;
 	align: center;
   /*border: 1px solid black;*/
+}
+
+.game-window {
+  background-color: blue;
+  width: 850px;
+  height: 550px;
+  margin: auto;
+  align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 10px;
 }
 
 #score-options-cont {
@@ -24,6 +37,8 @@ body {
   display:flex;
   flex-direction: row;
   justify-content: space-around;
+  font-family: sans-serif;
+  font-size: 30px;
   /*border: 1px solid black;*/
 }
 
@@ -35,6 +50,8 @@ body {
 
 #winner {
   color: white;
+  font-family: sans-serif;
+  font-size: 30px;
   /*border: 1px solid black;*/
 }
 
