@@ -493,8 +493,6 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     if (distTotal < radiusTotal) {
       var distDiff = radiusTotal - distTotal;
 
-      debugger;
-
       // if (velXDiff * distX - velYDiff * distY >= 0) {
       // debugger;
 
@@ -811,7 +809,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.strikerPhysics = strikerPhysics;
 
 
-var difficulty = .2;
+var difficulty = .15;
 
 function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
 

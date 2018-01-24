@@ -8,15 +8,27 @@
     <script src='./lib/three.min.js'></script>
   </head>
   <body>
-    <div id="score-options-cont">
+    <div id="score-options-cont" class="fade-in">
       <h2 id="winner">First To 5 Wins!</h2>
       <!-- <h2 id="options">Options</h2> -->
     </div>
-    <div id="score">
+    <div id="score" class="fade-in">
       <h1 id="score-board">0 - 0</h2>
     </div>
-    <div class="game-window">
-      <div id="game-cont"></div>
+    <div class="game-row fade-in">
+      <div class="controls">
+        <p>Here are the controls:</p>
+      </div>
+      <div class="game-window fade-in">
+        <div id="game-cont"></div>
+      </div>
+      <div class="start-game fade-in">
+        <button id="play-button" class="button">
+          <span class="blink-me" id="play-button-text">
+             New Game
+          </span>
+        </button>
+      </div>
     </div>
     <!-- <script src='./lib/air_hockey.js'></script> -->
     <!-- <script src='./lib/puck_physics.js'></script> -->
