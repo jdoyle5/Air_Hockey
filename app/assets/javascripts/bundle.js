@@ -493,6 +493,8 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
     if (distTotal < radiusTotal) {
       var distDiff = radiusTotal - distTotal;
 
+      debugger;
+
       // if (velXDiff * distX - velYDiff * distY >= 0) {
       // debugger;
 
@@ -526,8 +528,17 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
       // strVelY = vFinal2.y;
 
 
-      puck.position.x += puckStats.puckDirX;
-      puck.position.y += puckStats.puckDirY;
+      if (puckStats.puckDirX < 0) {
+        puck.position.x += puckStats.puckDirX - distDiff;
+      } else {
+        puck.position.x += puckStats.puckDirX + distDiff;
+      }
+
+      if (puckStats.puckDirX < 0) {
+        puck.position.y += puckStats.puckDirY - distDiff;
+      } else {
+        puck.position.y += puckStats.puckDirY + distDiff;
+      }
 
       ///////////////////////////////////////////////////////////////////////
       ///////////////////////////////////////////////////////////////////////
@@ -573,13 +584,8 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
       // puckStats.puckDirX = velPuckF.x;
       // puckStats.puckDirY = velPuckF.y;
     }
-
-    {
-      // puck.position.x += puckStats.puckDirX * puckStats.puckSpeed;
-      // puck.position.y += puckStats.puckDirY * puckStats.puckSpeed;
-      puck.position.x += puckStats.puckDirX;
-      puck.position.y += puckStats.puckDirY;
-    }
+    puck.position.x += puckStats.puckDirX;
+    puck.position.y += puckStats.puckDirY;
   }
 
   //////////////////////////////////////////////////////////////
