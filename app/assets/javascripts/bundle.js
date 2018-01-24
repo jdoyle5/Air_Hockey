@@ -162,11 +162,11 @@ function setScene() {
   container.appendChild(renderer.domElement);
 
   var strikerOneMaterial = new THREE.MeshLambertMaterial({
-    color: 0x14cad4
+    color: 0x00BFFF
   });
 
   var strikerTwoMaterial = new THREE.MeshLambertMaterial({
-    color: 0x14cad4
+    color: 0xDC143C
   });
 
   var planeMaterial = new THREE.MeshLambertMaterial({
@@ -174,15 +174,19 @@ function setScene() {
   });
 
   var tableMaterial = new THREE.MeshLambertMaterial({
-    color: 0xff0000
+    color: 0x4B0082
   });
 
   var groundMaterial = new THREE.MeshLambertMaterial({
     color: 0xffd700
   });
 
-  var goalMaterial = new THREE.MeshLambertMaterial({
-    color: 0xD433FF
+  var goalOneMaterial = new THREE.MeshLambertMaterial({
+    color: 0xFF0000
+  });
+
+  var goalTwoMaterial = new THREE.MeshLambertMaterial({
+    color: 0x0000FF
   });
 
   var puckMaterial = new THREE.MeshLambertMaterial({
@@ -213,7 +217,7 @@ function setScene() {
       segments = 20;
 
   ////////////////////////////////////
-  var goalOne = new THREE.Mesh(new THREE.CubeGeometry(35, 100, 10, 1, 1, 1), goalMaterial);
+  var goalOne = new THREE.Mesh(new THREE.CubeGeometry(35, 100, 10, 1, 1, 1), goalOneMaterial);
 
   scene.add(goalOne);
   goalOne.position.x = gameStats.fieldWidth / 2 + 32;
@@ -221,7 +225,7 @@ function setScene() {
   ////////////////////////////////////
 
   ////////////////////////////////////
-  var goalTwo = new THREE.Mesh(new THREE.CubeGeometry(35, 100, 10, 1, 1, 1), goalMaterial);
+  var goalTwo = new THREE.Mesh(new THREE.CubeGeometry(35, 100, 10, 1, 1, 1), goalTwoMaterial);
 
   scene.add(goalTwo);
   goalTwo.position.x = -gameStats.fieldWidth / 2 - 32;
