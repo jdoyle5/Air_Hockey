@@ -68,7 +68,21 @@ body {
 }
 
 .start-game {
-  width: 15%
+  width: 15%;
+}
+
+.button {
+  margin-top: 15px;
+  width: 35%;
+  height: 15%;
+  font-size: 30px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 3px solid blue;
+  opacity: .5;
 }
 
 .button:hover {
@@ -81,6 +95,31 @@ body {
   -ms-animation: fadein 2s; /* Internet Explorer */
   -o-animation: fadein 2s; /* Opera < 12.1 */
   animation: fadein 2s;
+}
+
+.blink-me {
+  animation: blinker 2s linear infinite;
+}
+
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.demo {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 35px;
+  font-family: sans-serif;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
 }
 
 @keyframes fadein {
