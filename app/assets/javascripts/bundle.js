@@ -124,7 +124,7 @@ var puckStats = {
 var strikerStats = {
   strikerOneDirX: 0,
   strikerOneDirY: 0,
-  strikerTwoDirX: 0,
+  strikerTwoDirX: 1,
   strikerTwoDirY: 0,
   strikerOneSpeed: 5,
   strikerTwoSpeed: 5
@@ -162,19 +162,19 @@ function setScene() {
   container.appendChild(renderer.domElement);
 
   var strikerOneMaterial = new THREE.MeshLambertMaterial({
-    color: 0x00BFFF
+    color: 0x4B0082
   });
 
   var strikerTwoMaterial = new THREE.MeshLambertMaterial({
-    color: 0xDC143C
+    color: 0x4B0082
   });
 
   var planeMaterial = new THREE.MeshLambertMaterial({
-    color: 0x7a7a7a
+    color: 0x000000
   });
 
   var tableMaterial = new THREE.MeshLambertMaterial({
-    color: 0x4B0082
+    color: 0x228B22
   });
 
   var groundMaterial = new THREE.MeshLambertMaterial({
@@ -182,7 +182,7 @@ function setScene() {
   });
 
   var goalOneMaterial = new THREE.MeshLambertMaterial({
-    color: 0xFF0000
+    color: 0x0000FF
   });
 
   var goalTwoMaterial = new THREE.MeshLambertMaterial({
@@ -220,7 +220,7 @@ function setScene() {
   var goalOne = new THREE.Mesh(new THREE.CubeGeometry(35, 100, 10, 1, 1, 1), goalOneMaterial);
 
   scene.add(goalOne);
-  goalOne.position.x = gameStats.fieldWidth / 2 + 32;
+  goalOne.position.x = gameStats.fieldWidth / 2 + 20;
   goalOne.position.z = 10;
   ////////////////////////////////////
 
@@ -347,7 +347,7 @@ exports.puckPhysics = puckPhysics;
 
 var puckRadius = 15;
 var strikerRadius = 25;
-var puckSpeedLev = 0.3;
+var puckSpeedLev = 0.1;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, strikerStats) {
@@ -376,7 +376,6 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
   } else if (puck.position.x >= gameStats.fieldWidth / 2) {
     var distBetwRight = puck.position.x - rightEdge;
     puck.position.x += -distBetwRight;
-    debugger;
     puckStats.puckDirX = -puckStats.puckDirX;
   }
 
@@ -810,7 +809,13 @@ var difficulty = .2;
 
 function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
 
+  var robotEdge = gameStats.fieldWidth / 2 - 40;
+
   strikerStats.strikerTwoDirY = (puck.position.y - strikerTwo.position.y) * difficulty;
+
+  if (puck.position.x > 0) {
+    strikerStats.strikerTwoDirX = (puck.position.x - strikerTwo.position.x) * .05;
+  }
 
   if (Math.abs(strikerStats.strikerTwoDirY) <= strikerStats.strikerTwoSpeed) {
     strikerTwo.position.y += strikerStats.strikerTwoDirY;
@@ -818,6 +823,12 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
     strikerTwo.position.y += strikerStats.strikerTwoSpeed;
   } else if (strikerStats.strikerTwoDirY < -strikerStats.strikerTwoSpeed) {
     strikerTwo.position.y -= strikerStats.strikerTwoSpeed;
+  }
+
+  if (puck.position.x > 0 && strikerTwo.position.x > 0) {
+    strikerTwo.position.x += strikerStats.strikerTwoDirX * (difficulty * 2);
+  } else if (strikerTwo.position.x <= robotEdge) {
+    strikerTwo.position.x += 2;
   }
 
   if (Key.isDown(Key.L)) {
