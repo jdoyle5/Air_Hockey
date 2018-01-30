@@ -635,7 +635,7 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
     strikerStats.strikerOneDirY = (puck.position.y - strikerOne.position.y) * difficulty;
 
     if (puck.position.x < 0) {
-      strikerStats.strikerOneDirX = (puck.position.x - strikerOne.position.x) * .05;
+      strikerStats.strikerOneDirX = (puck.position.x - strikerOne.position.x) * .02;
     }
 
     if (Math.abs(strikerStats.strikerOneDirY) <= strikerStats.strikerOneSpeed) {
@@ -646,7 +646,7 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
       strikerOne.position.y -= strikerStats.strikerOneSpeed;
     }
 
-    if (puck.position.x < 0 && strikerOne.position.x < 0) {
+    if (puck.position.x < 0) {
       strikerOne.position.x += strikerStats.strikerOneDirX * (difficulty * 2);
     } else if (strikerOne.position.x >= robotEdgeOne) {
       strikerOne.position.x -= 2;
