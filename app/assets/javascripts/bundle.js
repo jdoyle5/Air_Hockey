@@ -138,24 +138,23 @@ function setEnv() {
   // document.getElementById("winner").innerHTML =
   //   "First player to " + gameStats.maxScore + " wins!";
 
-  document.getElementById("play-button").onClick = function () {
-    newGame();
+  document.getElementById("play-button").onclick = function () {
     console.log("hello");
+    newGame();
   };
-
-  gameStats.scorePlayer1 = 0;
-  gameStats.scorePlayer2 = 0;
 
   setScene();
   draw();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function newGame() {
-  document.getElemenetById("play-button").classList.add("hide");
+  document.getElementById("play-button").classList.add("hide");
   exports.newGameBool = newGameBool = true;
 
   gameStats.scorePlayer1 = 0;
   gameStats.scorePlayer2 = 0;
+
+  document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + ' - ' + gameStats.scorePlayer2;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
