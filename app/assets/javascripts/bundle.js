@@ -632,6 +632,7 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
       strikerStats.strikerOneDirX = 0;
     }
   } else {
+
     strikerStats.strikerOneDirY = (puck.position.y - strikerOne.position.y) * difficulty;
 
     if (puck.position.x < 0) {
