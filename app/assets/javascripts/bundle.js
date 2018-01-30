@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.newGameBool = undefined;
 exports.setEnv = setEnv;
 
 var _puck_physics = __webpack_require__(2);
@@ -113,7 +112,8 @@ var gameStats = {
   scorePlayer2: 0,
   maxScore: 5,
   fieldWidth: 630,
-  fieldHeight: 370
+  fieldHeight: 370,
+  gameOnBool: false
 };
 
 var puckStats = {
@@ -123,7 +123,7 @@ var puckStats = {
 };
 
 var strikerStats = {
-  strikerOneDirX: 0,
+  strikerOneDirX: 1,
   strikerOneDirY: 0,
   strikerTwoDirX: 1,
   strikerTwoDirY: 0,
@@ -131,15 +131,10 @@ var strikerStats = {
   strikerTwoSpeed: 5
 };
 
-var newGameBool = exports.newGameBool = false;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setEnv() {
-  // document.getElementById("winner").innerHTML =
-  //   "First player to " + gameStats.maxScore + " wins!";
 
   document.getElementById("play-button").onclick = function () {
-    console.log("hello");
     newGame();
   };
 
@@ -149,7 +144,8 @@ function setEnv() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function newGame() {
   document.getElementById("play-button").classList.add("hide");
-  exports.newGameBool = newGameBool = true;
+
+  gameStats.gameOnBool = true;
 
   gameStats.scorePlayer1 = 0;
   gameStats.scorePlayer2 = 0;
@@ -377,10 +373,12 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
   var rightEdge = gameStats.fieldWidth / 2;
 
   if (puck.position.x <= -gameStats.fieldWidth / 2 && puck.position.y > -50 && puck.position.y < 50) {
-    gameStats.scorePlayer2++;
-    document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + " - " + gameStats.scorePlayer2;
+    if (gameStats.gameOnBool) {
+      gameStats.scorePlayer2++;
+      document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + " - " + gameStats.scorePlayer2;
+      gameWonCheck(gameStats.scorePlayer1, gameStats.scorePlayer2, gameStats.maxScore, puckStats, gameStats);
+    }
     resetPuck(2, puck, puckStats);
-    gameWonCheck(gameStats.scorePlayer1, gameStats.scorePlayer2, gameStats.maxScore, puckStats);
   } else if (puck.position.x <= -gameStats.fieldWidth / 2) {
     var distBetwLeft = puck.position.x - leftEdge;
     puck.position.x += -distBetwLeft;
@@ -388,10 +386,12 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
   }
 
   if (puck.position.x >= gameStats.fieldWidth / 2 && puck.position.y > -50 && puck.position.y < 50) {
-    gameStats.scorePlayer1++;
-    document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + " - " + gameStats.scorePlayer2;
-    resetPuck(1, puck, puckStats);
-    gameWonCheck(gameStats.scorePlayer1, gameStats.scorePlayer2, gameStats.maxScore, puckStats);
+    if (gameStats.gameOnBool) {
+      gameStats.scorePlayer2++;
+      document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + " - " + gameStats.scorePlayer2;
+      gameWonCheck(gameStats.scorePlayer1, gameStats.scorePlayer2, gameStats.maxScore, puckStats, gameStats);
+    }
+    resetPuck(2, puck, puckStats);
   } else if (puck.position.x >= gameStats.fieldWidth / 2) {
     var distBetwRight = puck.position.x - rightEdge;
     puck.position.x += -distBetwRight;
@@ -544,15 +544,17 @@ function resetPuck(player, puck, puckStats) {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////
-function gameWonCheck(scorePlayer1, scorePlayer2, maxScore, puckStats) {
+function gameWonCheck(scorePlayer1, scorePlayer2, maxScore, puckStats, gameStats) {
   if (scorePlayer1 >= maxScore) {
     puckStats.puckSpeed = 0;
     document.getElementById("score-board").innerHTML = "Human Wins!";
-    document.getElementById("winner").innerHTML = "Refresh to play again";
+    document.getElementById("play-button").classList.remove("hide");
+    gameStats.gameOnBool = false;
   } else if (scorePlayer2 >= maxScore) {
     puckStats.puckSpeed = 0;
     document.getElementById("score-board").innerHTML = "Robot Wins!";
-    document.getElementById("winner").innerHTML = "Refresh to play again";
+    document.getElementById("play-button").classList.remove("hide");
+    gameStats.gameOnBool = false;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -574,7 +576,8 @@ var difficulty = .15;
 
 function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
 
-  var robotEdge = gameStats.fieldWidth / 2 - 40;
+  var robotEdgeTwo = gameStats.fieldWidth / 2 - 40;
+  var robotEdgeOne = -gameStats.fieldWidth / 2 + 40;
 
   strikerStats.strikerTwoDirY = (puck.position.y - strikerTwo.position.y) * difficulty;
 
@@ -592,40 +595,62 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
 
   if (puck.position.x > 0 && strikerTwo.position.x > 0) {
     strikerTwo.position.x += strikerStats.strikerTwoDirX * (difficulty * 2);
-  } else if (strikerTwo.position.x <= robotEdge) {
+  } else if (strikerTwo.position.x <= robotEdgeTwo) {
     strikerTwo.position.x += 2;
   }
 
-  if (Key.isDown(Key.L)) {
-    if (strikerOne.position.y < gameStats.fieldHeight * 0.47) {
-      strikerStats.strikerOneDirY = strikerStats.strikerOneSpeed;
+  if (gameStats.gameOnBool) {
+    if (Key.isDown(Key.L)) {
+      if (strikerOne.position.y < gameStats.fieldHeight * 0.47) {
+        strikerStats.strikerOneDirY = strikerStats.strikerOneSpeed;
+      } else {
+        strikerStats.strikerOneDirY = 0;
+      }
+    } else if (Key.isDown(Key.R)) {
+      if (strikerOne.position.y > -gameStats.fieldHeight * 0.47) {
+        strikerStats.strikerOneDirY = -strikerStats.strikerOneSpeed;
+      } else {
+        strikerStats.strikerOneDirY = 0;
+      }
     } else {
       strikerStats.strikerOneDirY = 0;
     }
-  } else if (Key.isDown(Key.R)) {
-    if (strikerOne.position.y > -gameStats.fieldHeight * 0.47) {
-      strikerStats.strikerOneDirY = -strikerStats.strikerOneSpeed;
-    } else {
-      strikerStats.strikerOneDirY = 0;
-    }
-  } else {
-    strikerStats.strikerOneDirY = 0;
-  }
 
-  if (Key.isDown(Key.F)) {
-    if (strikerOne.position.x < -50) {
-      strikerStats.strikerOneDirX = strikerStats.strikerOneSpeed;
-    } else {
-      strikerStats.strikerOneDirX = 0;
-    }
-  } else if (Key.isDown(Key.B)) {
-    if (strikerOne.position.x > -307) {
-      strikerStats.strikerOneDirX = -strikerStats.strikerOneSpeed;
+    if (Key.isDown(Key.F)) {
+      if (strikerOne.position.x < -50) {
+        strikerStats.strikerOneDirX = strikerStats.strikerOneSpeed;
+      } else {
+        strikerStats.strikerOneDirX = 0;
+      }
+    } else if (Key.isDown(Key.B)) {
+      if (strikerOne.position.x > -307) {
+        strikerStats.strikerOneDirX = -strikerStats.strikerOneSpeed;
+      } else {
+        strikerStats.strikerOneDirX = 0;
+      }
     } else {
       strikerStats.strikerOneDirX = 0;
     }
   } else {
-    strikerStats.strikerOneDirX = 0;
+    strikerStats.strikerOneDirY = (puck.position.y - strikerOne.position.y) * difficulty;
+
+    if (puck.position.x < 0) {
+      strikerStats.strikerOneDirX = (puck.position.x - strikerOne.position.x) * .05;
+    }
+
+    if (Math.abs(strikerStats.strikerOneDirY) <= strikerStats.strikerOneSpeed) {
+      strikerOne.position.y += strikerStats.strikerOneDirY;
+    } else if (strikerStats.strikerOneDirY > strikerStats.strikerOneSpeed) {
+      strikerOne.position.y += strikerStats.strikerOneSpeed;
+    } else if (strikerStats.strikerOneDirY < -strikerStats.strikerOneSpeed) {
+      strikerOne.position.y -= strikerStats.strikerOneSpeed;
+    }
+
+    if (puck.position.x < 0 && strikerOne.position.x < 0) {
+      strikerOne.position.x += strikerStats.strikerOneDirX * (difficulty * 2);
+    } else if (strikerOne.position.x >= robotEdgeOne) {
+      strikerOne.position.x -= 2;
+    }
   }
 
   strikerOne.position.y += strikerStats.strikerOneDirY;
