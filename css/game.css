@@ -53,6 +53,7 @@ body {
 
 #title {
   margin-top: 15px;
+  margin-bottom: 0px;
   /* width: 35%;
   height: 15%; */
   font-size: 70px;
@@ -88,7 +89,7 @@ body {
   margin-top: 15px;
   width: 35%;
   height: 15%;
-  font-size: 40px;
+  font-size: 50px;
   background-color: black;
   color: white;
   padding: 5px;
@@ -123,6 +124,7 @@ body {
 
 .demo {
   position: absolute;
+  top: 37%;
   width: 50%;
   height: 50%;
   display: flex;

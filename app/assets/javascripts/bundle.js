@@ -150,6 +150,11 @@ function newGame() {
   gameStats.scorePlayer1 = 0;
   gameStats.scorePlayer2 = 0;
 
+  (0, _puck_physics.resetPuck)(1, puck, puckStats);
+
+  strikerOne.position.x = -gameStats.fieldWidth / 2 + strikerBotRadius - 15;
+  strikerOne.position.z = 3;
+  strikerOne.position.y = 0;
   document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + ' - ' + gameStats.scorePlayer2;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -330,8 +335,8 @@ function draw() {
 
   // camera.position.x = 0;
   // camera.position.z = 600;
-  camera.position.x = strikerOne.position.x - 350;
-  camera.position.z = strikerOne.position.z + 280;
+  camera.position.x = -700;
+  camera.position.z = strikerOne.position.z + 350;
   camera.rotation.z = -90 * Math.PI / 180;
   camera.rotation.y = -60 * Math.PI / 180;
   spotLight.position.x = puck.position.x * 2;
@@ -358,6 +363,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.puckPhysics = puckPhysics;
+exports.resetPuck = resetPuck;
 
 
 var puckRadius = 15;
@@ -387,7 +393,7 @@ function puckPhysics(puck, gameStats, strikerOne, strikerTwo, puckStats, striker
 
   if (puck.position.x >= gameStats.fieldWidth / 2 && puck.position.y > -50 && puck.position.y < 50) {
     if (gameStats.gameOnBool) {
-      gameStats.scorePlayer2++;
+      gameStats.scorePlayer1++;
       document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + " - " + gameStats.scorePlayer2;
       gameWonCheck(gameStats.scorePlayer1, gameStats.scorePlayer2, gameStats.maxScore, puckStats, gameStats);
     }
@@ -647,10 +653,10 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
       strikerOne.position.y -= strikerStats.strikerOneSpeed;
     }
 
-    if (puck.position.x < 0) {
+    if (puck.position.x < -30) {
       strikerOne.position.x += strikerStats.strikerOneDirX * (difficulty * 2);
     } else if (strikerOne.position.x >= robotEdgeOne) {
-      strikerOne.position.x -= 2;
+      strikerOne.position.x -= 5;
     }
   }
 
