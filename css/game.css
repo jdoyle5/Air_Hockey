@@ -82,7 +82,7 @@ body {
 
 .button {
   margin-top: 15px;
-  width: 35%;
+  width: 260px;
   height: 16%;
   font-size: 60px;
   background-color: black;
@@ -223,7 +223,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 200px;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .difficulty-buttons {
