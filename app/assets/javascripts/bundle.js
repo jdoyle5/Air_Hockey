@@ -143,7 +143,7 @@ function setEnv() {
     document.getElementById("easy").classList.add("enlarge");
     document.getElementById("medium").classList.remove("enlarge");
     document.getElementById("hard").classList.remove("enlarge");
-    gameStats.difficulty = .1;
+    gameStats.difficulty = .15;
   };
 
   document.getElementById("medium").onclick = function () {
