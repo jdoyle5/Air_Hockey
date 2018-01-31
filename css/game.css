@@ -218,3 +218,34 @@ body {
   width: 220px;
   font-size: 30px;
 }
+
+.difficulty-level {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin-right: 50px;
+}
+
+.difficulty-buttons {
+  margin-top: 35px;
+  width: 130px;
+  height: 12%;
+  font-size: 30px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  padding-top: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 3px solid blue;
+  opacity: .5;
+  font-family: 'Bangers';
+}
+
+.difficulty-buttons:hover {
+  transform: scale(1.35);
+}
+
+.enlarge {
+  transform: scale(1.35);
+}

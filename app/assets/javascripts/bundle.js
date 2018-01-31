@@ -113,7 +113,8 @@ var gameStats = {
   maxScore: 5,
   fieldWidth: 630,
   fieldHeight: 370,
-  gameOnBool: false
+  gameOnBool: false,
+  difficulty: .15
 };
 
 var puckStats = {
@@ -136,6 +137,27 @@ function setEnv() {
 
   document.getElementById("play-button").onclick = function () {
     newGame();
+  };
+
+  document.getElementById("easy").onclick = function () {
+    document.getElementById("easy").classList.add("enlarge");
+    document.getElementById("medium").classList.remove("enlarge");
+    document.getElementById("hard").classList.remove("enlarge");
+    gameStats.difficulty = .1;
+  };
+
+  document.getElementById("medium").onclick = function () {
+    document.getElementById("medium").classList.add("enlarge");
+    document.getElementById("easy").classList.remove("enlarge");
+    document.getElementById("hard").classList.remove("enlarge");
+    gameStats.difficulty = .3;
+  };
+
+  document.getElementById("hard").onclick = function () {
+    document.getElementById("hard").classList.add("enlarge");
+    document.getElementById("easy").classList.remove("enlarge");
+    document.getElementById("medium").classList.remove("enlarge");
+    gameStats.difficulty = .5;
   };
 
   document.getElementById("score-board").innerHTML = 'Select new game to begin!';
@@ -579,11 +601,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.strikerPhysics = strikerPhysics;
-
-
-var difficulty = .15;
-
 function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
+
+  var difficulty = gameStats.difficulty;
 
   var robotEdgeTwo = gameStats.fieldWidth / 2 - 40;
   var robotEdgeOne = -gameStats.fieldWidth / 2 + 40;
@@ -603,7 +623,7 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
   }
 
   if (puck.position.x > 0 && strikerTwo.position.x > 0) {
-    strikerTwo.position.x += strikerStats.strikerTwoDirX * (difficulty * 2);
+    strikerTwo.position.x += strikerStats.strikerTwoDirX * (.15 * 2);
   } else if (strikerTwo.position.x <= robotEdgeTwo) {
     strikerTwo.position.x += 2;
   }
