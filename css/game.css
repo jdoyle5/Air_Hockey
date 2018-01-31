@@ -44,6 +44,10 @@ body {
   /*border: 1px solid black;*/
 }
 
+#score-board {
+  margin-top: 10px;
+}
+
 #options {
   /*font-size: 300%;*/
   color: white;
@@ -54,18 +58,9 @@ body {
 #title {
   margin-top: 15px;
   margin-bottom: 0px;
-  /* width: 35%;
-  height: 15%; */
-  font-size: 70px;
+  font-size: 100px;
   font-family: 'Bangers';
-  /* background-color: black; */
-  color: white;
-  /* padding: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: 3px solid blue;
-  align-self: center;
-  align-content: center; */
+  color: black;
   text-align: center;
 }
 
@@ -88,8 +83,8 @@ body {
 .button {
   margin-top: 15px;
   width: 35%;
-  height: 15%;
-  font-size: 50px;
+  height: 16%;
+  font-size: 60px;
   background-color: black;
   color: white;
   padding: 5px;
@@ -124,7 +119,7 @@ body {
 
 .demo {
   position: absolute;
-  top: 37%;
+  top: 30%;
   width: 50%;
   height: 50%;
   display: flex;
@@ -170,5 +165,56 @@ body {
 }
 
 #play-button {
+  margin: 0;
+  padding-bottom: 20px;
+}
 
+.icons {
+  font-size: 30px;
+	padding: 0 0 0 0;
+  font-family: 'Bangers';
+}
+
+.controls p {
+  font-size: 40px;
+  margin: 15px 0px 15px 30px;
+  color: black;
+  text-decoration: underline;
+}
+
+.how-to-controls {
+  font-family: 'Bangers';
+  color: white;
+  font-size: 30px;
+  margin: 25px 10px 15px 30px;
+}
+
+.control-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 30px;
+  width: 200px;
+  margin: 0px 0px 0px 30px;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.how-to {
+  margin-top: 40px;
+  margin-bottom: 0px;
+  width: 200px;
+  font-size: 40px;
+  color: black;
+  text-decoration: underline;
+}
+
+.how-to-p {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  width: 220px;
+  font-size: 30px;
 }

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/game.css" type="text/css">
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Bangers">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='lib/key_press.js'></script>
     <script src='app/assets/javascripts/bundle.js'></script>
     <script src='./lib/three.min.js'></script>
@@ -15,11 +16,34 @@
       <!-- <h2 id="options">Options</h2> -->
     </div>
     <div id="score" class="fade-in">
-      <h1 id="score-board">0 - 0</h2>
+      <h1 id="score-board" class="blink-me">0 - 0</h2>
     </div>
     <div class="game-row fade-in">
-      <div class="controls">
-        <p>Here are the controls:</p>
+      <div class="left-column">
+        <div class="controls">
+          <p>Controls:</p>
+          <div class="control-icons">
+            <span class='fa fa-arrow-left'></span>
+            <span class='icons'>move left</span>
+          </div>
+          <div class="control-icons">
+            <span class='fa fa-arrow-right'></span>
+            <span class='icons'>move right</span>
+          </div>
+          <div class="control-icons">
+            <span class='fa fa-arrow-up'></span>
+            <span class='icons'>move up</span>
+          </div>
+          <div class="control-icons">
+            <span class='fa fa-arrow-down'></span>
+            <span class='icons'>move down</span>
+          </div>
+        </div>
+        <div class="how-to-controls">
+          <p class="how-to">Instructions:</p>
+          <p class="how-to-p">First player to 5 wins.</p>
+          <p class="how-to-p">Set difficulty level on the right hand side.</p>
+        </div>
       </div>
       <div class="game-window fade-in">
         <div id="game-cont"></div>

@@ -138,6 +138,8 @@ function setEnv() {
     newGame();
   };
 
+  document.getElementById("score-board").innerHTML = 'Select new game to begin!';
+
   setScene();
   draw();
 }
@@ -156,6 +158,7 @@ function newGame() {
   strikerOne.position.z = 3;
   strikerOne.position.y = 0;
   document.getElementById("score-board").innerHTML = gameStats.scorePlayer1 + ' - ' + gameStats.scorePlayer2;
+  document.getElementById("score-board").classList.remove("blink-me");
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -657,6 +660,8 @@ function strikerPhysics(puck, strikerOne, strikerTwo, gameStats, strikerStats) {
       strikerOne.position.x += strikerStats.strikerOneDirX * (difficulty * 2);
     } else if (strikerOne.position.x >= robotEdgeOne) {
       strikerOne.position.x -= 5;
+    } else if (strikerOne.position.x <= robotEdgeOne - 80) {
+      strikerOne.position.x = robotEdgeOne + 10;
     }
   }
 
