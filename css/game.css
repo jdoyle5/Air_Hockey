@@ -83,7 +83,7 @@ body {
 .button {
   margin-top: 15px;
   width: 260px;
-  height: 16%;
+  height: 78px;
   font-size: 60px;
   background-color: black;
   color: white;
@@ -223,7 +223,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 200px;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .difficulty-buttons {
@@ -242,9 +242,9 @@ body {
 }
 
 .difficulty-buttons:hover {
-  transform: scale(1.35);
+  transform: scale(1.30);
 }
 
 .enlarge {
-  transform: scale(1.35);
+  transform: scale(1.30);
 }
